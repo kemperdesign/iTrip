@@ -34,6 +34,9 @@ class Settings(BaseSettings):
     max_file_size_mb: int = 10
     allowed_file_types: str = "docx,xlsx,pdf"
 
+    # CORS - allowed frontend origins (comma-separated)
+    cors_origins: str = "http://localhost:3000,http://localhost:3001,https://itrip-frontend-production.up.railway.app"
+
     class Config:
         env_file = ".env"
         case_sensitive = False
