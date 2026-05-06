@@ -4,8 +4,9 @@ from app.config import settings
 from app.models import Base
 import os
 
-# Ensure data directory exists
-os.makedirs(os.path.dirname(settings.database_url.replace("sqlite:///", "")), exist_ok=True)
+# Ensure data directory exists (only for SQLite)
+if "sqlite" in settings.database_url:
+    os.makedirs(os.path.dirname(settings.database_url.replace("sqlite:///", "")), exist_ok=True)
 
 engine = create_engine(
     settings.database_url,
