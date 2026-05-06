@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status, Query
 from sqlalchemy.orm import Session
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 import logging
 from app.database import get_db
 from app.models import User, Property
