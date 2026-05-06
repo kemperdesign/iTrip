@@ -1,24 +1,24 @@
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-sqlalchemy==2.0.23
-pydantic==2.5.0
-pydantic-settings==2.1.0
-python-multipart==0.0.6
-python-docx==0.8.11
-openpyxl==3.11.0
-pypdf==3.17.1
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-httpx==0.25.2
-pydantic-core==2.14.1
+fastapi>=0.100.0
+uvicorn[standard]>=0.24.0
+sqlalchemy>=2.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+email-validator>=2.1.0
+python-multipart>=0.0.6
+python-docx>=0.8.11
+openpyxl>=3.1.0
+pypdf>=3.17.0
+python-jose[cryptography]>=3.3.0
+bcrypt>=4.0.0
+httpx>=0.24.0
 
 # AI Providers
-google-generativeai==0.3.0
-openai==1.3.8
-anthropic==0.7.8
+google-generativeai>=0.3.0
+openai>=1.3.0
+anthropic>=0.7.0
 
-# Vector Search
-qdrant-client==2.7.0
+# Vector Search (optional for Phase 2)
+qdrant-client>=1.17.0
 
 # Utility
-python-dotenv==1.0.0
+python-dotenv>=1.0.0

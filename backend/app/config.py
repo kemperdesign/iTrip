@@ -30,9 +30,14 @@ class Settings(BaseSettings):
     qdrant_url: str = "http://localhost:6333"
     qdrant_collection_name: str = "itrip_documents"
 
+    # File Upload (optional)
+    max_file_size_mb: int = 10
+    allowed_file_types: str = "docx,xlsx,pdf"
+
     class Config:
         env_file = ".env"
         case_sensitive = False
+        extra = "ignore"
 
 
 settings = Settings()

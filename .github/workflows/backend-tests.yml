@@ -1,0 +1,68 @@
+name: Backend Tests
+
+on:
+  push:
+    branches: [main, master, develop]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-tests.yml'
+  pull_request:
+    branches: [main, master, develop]
+    paths:
+      - 'backend/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd backend
+          pip install -r requirements.txt
+          pip install pytest pytest-cov black flake8 mypy
+
+      - name: Format check with Black
+        run: |
+          cd backend
+          black . --check
+        continue-on-error: true
+
+      - name: Lint with Flake8
+        run: |
+          cd backend
+          flake8 . --max-line-length=100 --ignore=E203,W503
+        continue-on-error: true
+
+      - name: Type check with mypy
+        run: |
+          cd backend
+          mypy app/ --ignore-missing-imports
+        continue-on-error: true
+
+      - name: Run tests with pytest
+        run: |
+          cd backend
+          pytest tests/ -v --tb=short --cov=app --cov-report=xml
+        continue-on-error: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./backend/coverage.xml
+          flags: backend
+          name: backend-coverage
+        if: always()

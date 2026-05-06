@@ -1,0 +1,72 @@
+name: Frontend Build
+
+on:
+  push:
+    branches: [main, master, develop]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-build.yml'
+  pull_request:
+    branches: [main, master, develop]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: ['18.x', '20.x']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Type check with TypeScript
+        run: |
+          cd frontend
+          npm run type-check
+        continue-on-error: true
+
+      - name: Lint with ESLint
+        run: |
+          cd frontend
+          npm run lint
+        continue-on-error: true
+
+      - name: Format check with Prettier
+        run: |
+          cd frontend
+          npx prettier --check src/
+        continue-on-error: true
+
+      - name: Build production bundle
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Run tests
+        run: |
+          cd frontend
+          npm test -- --coverage --watchAll=false
+        continue-on-error: true
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./frontend/coverage
+          flags: frontend
+          name: frontend-coverage
+        if: always()

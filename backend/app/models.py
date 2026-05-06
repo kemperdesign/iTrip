@@ -45,6 +45,17 @@ class Document(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
+class DocumentChunk(Base):
+    __tablename__ = "document_chunks"
+
+    id = Column(Integer, primary_key=True)
+    document_id = Column(Integer, ForeignKey("documents.id"), index=True)
+    chunk_index = Column(Integer)
+    chunk_text = Column(Text)
+    qdrant_vector_id = Column(String, unique=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class PropertyFact(Base):
     __tablename__ = "property_facts"
 
@@ -125,9 +136,48 @@ class QuoteRecommendation(Base):
     departure_date = Column(DateTime)
     nights = Column(Integer)
     guest_count = Column(Integer)
+    guest_type = Column(String, default="standard")  # family, couple, group
+
+    # Pricing calculations
+    base_adr = Column(Float)  # Historical ADR before adjustments
+    seasonal_multiplier = Column(Float, default=1.0)  # Peak/off-season factor
+    guest_type_factor = Column(Float, default=1.0)  # Family/couple adjustment
+    length_of_stay_factor = Column(Float, default=1.0)  # Weekly/monthly discount
+
+    # Base rate before fees
+    base_rate = Column(Float)
+
+    # Fees
+    cleaning_fee = Column(Float, default=0)
+    service_fee = Column(Float, default=0)
+    pet_fee = Column(Float, default=0)
+    taxes = Column(Float, default=0)
+    discount = Column(Float, default=0)
+
+    # Final rates (including fees)
     conservative_rate = Column(Float)
     recommended_rate = Column(Float)
     aggressive_rate = Column(Float)
+
+    # Totals (rate * nights + fees)
+    conservative_total = Column(Float)
     recommended_total = Column(Float)
+    aggressive_total = Column(Float)
+
+    # Staff customization
+    staff_override_rate = Column(Float, nullable=True)
+    staff_notes = Column(Text)
+    staff_customizations = Column(JSON)  # For storing additional customizations
+
+    # Status tracking
+    status = Column(String, default="draft")  # draft, sent, accepted, rejected
+    used_in_booking = Column(Boolean, default=False)
+    created_by = Column(Integer, ForeignKey("users.id"), nullable=True)
+
+    # Reasoning and AI analysis
     reasoning = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    ai_analysis = Column(Text)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
