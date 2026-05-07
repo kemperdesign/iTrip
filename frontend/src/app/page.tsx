@@ -77,22 +77,22 @@ export default function Home() {
               Create Quote
             </a>
             <a
-              href="/property-brain"
+              href="/quotes"
               className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition font-medium"
             >
-              Ask Property Brain
+              View Quote History
             </a>
             <a
-              href="/revenue-analysis"
+              href="/quote-builder"
               className="px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/5 transition font-medium"
             >
-              View Revenue
+              Build New Quote
             </a>
             <a
-              href="/imports"
+              href="/login"
               className="px-4 py-2 border border-border text-foreground rounded-lg hover:bg-background transition font-medium"
             >
-              Upload Files
+              Sign In Again
             </a>
           </div>
         </div>

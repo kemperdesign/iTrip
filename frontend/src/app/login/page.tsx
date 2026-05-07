@@ -9,6 +9,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION || "dev";
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,7 +110,10 @@ export default function LoginPage() {
           </form>
 
           <p className="text-xs text-muted-foreground text-center mt-6">
-            Demo credentials: admin / 4173
+            Demo credentials: admin@example.com / 4173
+          </p>
+          <p className="text-xs text-muted-foreground/80 text-center mt-2">
+            Build: {appVersion}
           </p>
         </div>
       </div>

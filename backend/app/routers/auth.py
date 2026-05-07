@@ -58,7 +58,12 @@ def register(user_data: UserRegister, db: Session = Depends(get_db)):
 def login(credentials: UserLogin, db: Session = Depends(get_db)):
     """Login staff user and return JWT access token."""
     try:
-        user = db.query(User).filter(User.email == credentials.email).first()
+        login_id = credentials.email.strip()
+        user = db.query(User).filter(User.email == login_id).first()
+
+        # Backward compatibility: allow admin@example.com login if legacy admin exists
+        if not user and login_id.lower() == "admin@example.com":
+            user = db.query(User).filter(User.email == "admin").first()
 
         if not user or not verify_password(credentials.password, user.hashed_password):
             raise UnauthorizedError("Invalid email or password")

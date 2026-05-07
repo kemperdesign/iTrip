@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, status, Query
+from fastapi import APIRouter, Depends, status, Query, HTTPException
 from sqlalchemy.orm import Session
 from datetime import datetime
 from typing import Optional, List
 import logging
 from app.database import get_db
-from app.models import User, Property
+from app.models import User, Property, QuoteRecommendation
 from app.middleware.auth import get_current_active_user
 from app.services.revenue_analysis_service import (
     analyze_revenue,

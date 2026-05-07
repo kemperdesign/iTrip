@@ -5,7 +5,7 @@ from typing import Optional, List, Dict, Any
 
 # Auth Schemas
 class UserLogin(BaseModel):
-    email: EmailStr
+    email: str
     password: str
 
 

@@ -26,51 +26,29 @@ export default function Sidebar() {
     {
       name: "Dashboard",
       href: "/",
-      icon: "📊",
+      icon: "[D]",
     },
     {
       name: "Quote Builder",
       href: "/quote-builder",
-      icon: "💰",
+      icon: "[Q]",
     },
     {
       name: "Quote History",
       href: "/quotes",
-      icon: "📋",
-    },
-    {
-      name: "Property Brain",
-      href: "/property-brain",
-      icon: "🧠",
-    },
-    {
-      name: "Guest Reply",
-      href: "/guest-reply",
-      icon: "💬",
-    },
-    {
-      name: "Revenue Analysis",
-      href: "/revenue-analysis",
-      icon: "📈",
-    },
-    {
-      name: "Imports",
-      href: "/imports",
-      icon: "📁",
+      icon: "[H]",
     },
   ];
 
   return (
     <div className="w-64 bg-primary text-primary-foreground flex flex-col shadow-lg">
-      {/* Logo/Header */}
       <div className="h-16 border-b border-primary/20 flex items-center px-6">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">🚀</span>
+          <span className="text-2xl">[i]</span>
           <h1 className="text-lg font-bold">iTrip</h1>
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-6 space-y-2">
         {navItems.map((item) => (
           <Link
@@ -88,15 +66,12 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Footer */}
       <div className="border-t border-primary/20 p-4 space-y-3">
         <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/50">
-          <span className="text-xl">👤</span>
+          <span className="text-xl">[U]</span>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate">Staff User</p>
-            <p className="text-xs text-primary-foreground/70 truncate">
-              test@example.com
-            </p>
+            <p className="text-xs text-primary-foreground/70 truncate">test@example.com</p>
           </div>
         </div>
         <button

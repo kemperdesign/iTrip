@@ -29,9 +29,10 @@ export default function QuoteHistory() {
       setError(null);
       try {
         const token = localStorage.getItem("access_token");
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
         const statusParam = filterStatus !== "all" ? `&status_filter=${filterStatus}` : "";
         const response = await fetch(
-          `http://localhost:8000/revenue-analysis/quotes?limit=100${statusParam}`,
+          `${apiUrl}/revenue-analysis/quotes?limit=100${statusParam}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
