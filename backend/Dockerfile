@@ -6,8 +6,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app code
+# Copy app code and entrypoint
 COPY . .
+RUN chmod +x run.py
 
 # Run the app (use PORT env var from Railway, default to 8000)
-CMD ["python", "-c", "import uvicorn, os; uvicorn.run('app.main:app', host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))"]
+CMD ["python", "run.py"]
