@@ -14,4 +14,4 @@ COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
 # Run the app (use PORT env var from Railway, default to 8000)
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]
