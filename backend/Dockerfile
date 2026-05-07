@@ -10,5 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN chmod +x run.py
 
-# Run the app (use PORT env var from Railway, default to 8000)
+# Run the app using Python entrypoint (reads PORT env var, defaults to 8000)
 CMD ["python", "run.py"]
