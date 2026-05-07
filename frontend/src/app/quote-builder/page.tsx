@@ -50,7 +50,8 @@ export default function QuoteBuilder() {
     setError(null);
     try {
       const token = localStorage.getItem("access_token");
-      const response = await fetch("http://localhost:8000/revenue-analysis/quotes/generate", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const response = await fetch(`${apiUrl}/revenue-analysis/quotes/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
