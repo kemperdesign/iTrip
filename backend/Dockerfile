@@ -10,5 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN chmod +x run.py
 
-# Run the app using Python entrypoint (reads PORT env var, defaults to 8000)
-CMD ["python", "run.py"]
+# Run the app on port 8000 (Railway will handle port mapping via environment)
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
