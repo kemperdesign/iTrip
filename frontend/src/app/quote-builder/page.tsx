@@ -81,11 +81,11 @@ export default function QuoteBuilder() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-background py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Quote Builder</h1>
-          <p className="text-gray-600">
+          <h1 className="text-4xl font-bold text-foreground mb-2">Quote Builder</h1>
+          <p className="text-muted-foreground">
             Generate data-driven pricing recommendations with seasonal adjustments
           </p>
         </div>
@@ -93,15 +93,15 @@ export default function QuoteBuilder() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form Column */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-6 sticky top-4">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Generate Quote</h2>
+            <div className="bg-card rounded-lg shadow-sm border border-border p-6 sticky top-4">
+              <h2 className="text-lg font-semibold text-foreground mb-4">Generate Quote</h2>
               <QuoteBuilderForm
                 onSubmit={handleGenerateQuote}
                 loading={loading}
               />
               {error && (
-                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-red-800 text-sm">{error}</p>
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+                  {error}
                 </div>
               )}
             </div>
@@ -146,9 +146,13 @@ export default function QuoteBuilder() {
                 />
 
                 {/* Reasoning */}
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">AI Pricing Reasoning</h3>
-                  <p className="text-gray-700 whitespace-pre-wrap">{quote.reasoning}</p>
+                <div className="bg-card rounded-lg shadow-sm border border-border p-6">
+                  <h3 className="text-lg font-semibold text-foreground mb-3">
+                    AI Pricing Reasoning
+                  </h3>
+                  <p className="text-foreground whitespace-pre-wrap">
+                    {quote.reasoning}
+                  </p>
                 </div>
 
                 {/* Actions */}
@@ -171,7 +175,7 @@ ${quote.reasoning}
                       navigator.clipboard.writeText(quoteText);
                       alert("Quote copied to clipboard!");
                     }}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2 px-4 rounded-lg transition"
                   >
                     Copy Quote
                   </button>
@@ -180,15 +184,15 @@ ${quote.reasoning}
                       // TODO: Implement send/save quote
                       alert("Save quote functionality coming soon");
                     }}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+                    className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold py-2 px-4 rounded-lg transition"
                   >
                     Save Quote
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow p-12 text-center">
-                <p className="text-gray-500">
+              <div className="bg-card rounded-lg shadow-sm border border-border p-12 text-center">
+                <p className="text-muted-foreground">
                   Fill out the form to generate a pricing quote
                 </p>
               </div>
