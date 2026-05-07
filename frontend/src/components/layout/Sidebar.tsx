@@ -1,13 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isActive = (href: string) => {
     return pathname === href || pathname.startsWith(href + "/");
+  };
+
+  const handleLogout = async () => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      await fetch(`${apiUrl}/auth/logout`, { method: "POST" });
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+    localStorage.removeItem("access_token");
+    router.push("/login");
   };
 
   const navItems = [
@@ -87,7 +99,10 @@ export default function Sidebar() {
             </p>
           </div>
         </div>
-        <button className="w-full px-4 py-2 text-sm font-medium text-primary bg-primary-foreground rounded-lg hover:bg-primary-foreground/90 transition">
+        <button
+          onClick={handleLogout}
+          className="w-full px-4 py-2 text-sm font-medium text-primary bg-primary-foreground rounded-lg hover:bg-primary-foreground/90 transition"
+        >
           Logout
         </button>
       </div>
